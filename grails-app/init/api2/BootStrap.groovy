@@ -18,9 +18,7 @@ class BootStrap {
 
             def func1 = new Funcionario(nome: "João", cidade: cid1).save()
             def func2 = new Funcionario(nome: "Maria", cidade: cid2).save()
-            def func3 = new Funcionario(nome: "Pedro", cidade: cid2).save()
-
-
+            def func3 = new Funcionario(nome: "Pedro", cidade: cid3).save()
 
             // Definir o formato esperado da data
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")

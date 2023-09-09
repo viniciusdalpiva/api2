@@ -34,10 +34,13 @@ class FuncionarioController {
             render "Método não permitido para esta ação."
             return
         }
-
-        def funcionarioData = request.JSON
-        def funcionario = funcionarioService.criarFuncionario(funcionarioData)
-        render funcionario as JSON
+        try {
+            def funcionarioData = request.JSON
+            def funcionario = funcionarioService.criarFuncionario(funcionarioData)
+            render funcionario as JSON
+        } catch (IllegalArgumentException e) {
+            renderError(e.message)
+        }
     }
 
     def update(Long id) {
@@ -46,10 +49,13 @@ class FuncionarioController {
             render "Método não permitido para esta ação."
             return
         }
-
-        def funcionarioData = request.JSON
-        def funcionario = funcionarioService.atualizarFuncionario(id, funcionarioData)
-        render funcionario as JSON
+        try {
+            def funcionarioData = request.JSON
+            def funcionario = funcionarioService.atualizarFuncionario(id, funcionarioData)
+            render funcionario as JSON
+        } catch (IllegalArgumentException e) {
+            renderError(e.message)
+        }
     }
 
     def delete(Long id) {
@@ -61,5 +67,13 @@ class FuncionarioController {
 
         def funcionario = funcionarioService.excluirFuncionario(id)
         render funcionario as JSON
+    }
+
+    private renderError(String errorMessage) {
+        render(contentType: 'application/json') {
+            message "Bad Request"
+            error 400
+            data "Dados inseridos de maneira incorreta!"
+        }
     }
 }
